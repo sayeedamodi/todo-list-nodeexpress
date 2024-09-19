@@ -1,6 +1,13 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
 body{
+    margin: 0;
+    padding: 0;
     background-color: rgb(195, 178, 209); 
     background-image: -webkit-linear-gradient(60deg,rgb(255, 133, 206) 50% ,rgb(195, 178, 209) 50% );   
+    background-repeat: no-repeat;
 }
 body h1 {
     background-color:  rgb(255, 133, 206);
