@@ -86,3 +86,36 @@ form button {
     border: none;
     border-radius: 100% ;
 }
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+html , body {
+    margin: 0px;
+}
+body h1 {
+    width: 300px;
+    font-size: 30px;
+    text-align: center;
+    margin: auto auto ;
+    margin-top: 50px;
+}
+body .container{
+    margin: auto auto ;
+    margin-top: 50px;
+    width: 350px;
+}
+.container ul li {
+    font-size: 25px;
+}
+.container form {
+    display: flex;
+    width: 348px;
+}
+.container form input {
+    width: 250px;
+} 
+.container form button {
+    width: 60px;
+    height: 60px;
+    margin-left: 20px;
+    }  
+  }
