@@ -3,48 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="/styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <title>todo-list</title>
 </head>
+<link rel="stylesheet" href="styles.css">
 <body>
-<h1><%= kindOfday %></h1>
+<h1><%=kindOfday %></h1>
 <div class="container">
     <div class="ul">
-        <ul>
-            <% for (var i = 0; i < newListItems.length; i++) { %>
-                <li class="item">
-                    <input type="checkbox" class="delete-checkbox" data-id="<%= newListItems[i]._id %>">
-                    <b><%= newListItems[i].name %></b>
-                </li>
-            <% } %>
-        </ul>
+
+
+     <ul>
+    
+      <% for(var i=0 ; i< newListItems.length ; i++ ){ %>
+     <li><input type="checkbox" name="" id=""><b><%=newListItems[i]%></b></li>
+      <% } %>
+  
+     </ul>
     </div>
-    <form action="/" method="post">
-        <input type="text" name="newItem" autocapitalize="on" placeholder="Enter a task" style="text-align: center;">
-        <button type="submit">+</button>
-    </form>
+
+   <form action="/" method="post">
+   <input type="text" name="newItem" autocapitalize="on" placeholder="enter a task" style="text-align: center;" >
+   <button type="submit" name="button">+</button>
+  </form>
 </div>
-
-<script>
-$(document).ready(function() {
-    $('.delete-checkbox').change(function() {
-        const itemId = $(this).data('id');
-        
-        if (this.checked) {
-            $.ajax({
-                url: '/delete',
-                type: 'POST',
-                data: { itemId: itemId },
-                success: function(response) {
-                    // Remove the list item from the UI
-                    location.reload(); // Reload the page to get updated list
-                }
-            });
-        }
-    });
-});
-</script>
-
 </body>
 </html>
