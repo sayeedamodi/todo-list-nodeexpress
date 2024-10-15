@@ -2,13 +2,24 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
+require('dotenv').config(); // This should be at the top before using process.env
+
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+// Connect to MongoDB using Mongoose
+const uri = process.env.MONGODB_URI;
+
+mongoose.connect(uri, {
+})
+  .then(() => {
+    console.log("Successfully connected to MongoDB!");
+  })
+  .catch((err) => {
+    console.log("Connection error: " + err);
+  });
 
 // Define schema and model
 const itemsSchema = {
@@ -19,7 +30,7 @@ const Item = mongoose.model("Item", itemsSchema);
 
 // Default item
 const item1 = new Item({
-  name: "Welcome to your to-do list!",
+  name: "Welcome "
 });
 
 const defaultItems = [item1];
@@ -38,25 +49,15 @@ insertDefaultItems();
 app.get("/", async function (req, res) {
   try {
     const foundItems = await Item.find({});
-    var today = new Date();
-    var options = {
+    const today = new Date();
+    const options = {
       weekday: "long",
       day: "numeric",
       month: "long",
       year: "numeric",
     };
 
-    var day = today.toLocaleDateString("en-US", options);
-    async function findItems() {
-      try {
-        const foundItems = await Item.find({});
-        console.log(foundItems); // Handle the found items
-      } catch (err) {
-        console.log(err); // Handle the error
-      }
-    }
-    
-    findItems();
+    const day = today.toLocaleDateString("en-US", options);
     
     // Render the list.ejs with the found items from the database
     res.render("list", { kindOfday: day, newListItems: foundItems });
@@ -87,14 +88,13 @@ app.post("/delete", async function (req, res) {
 
   try {
     await Item.findByIdAndDelete(checkedItemId); // Delete the checked item
-    res.send("Item deleted"); // Send a response back
+    res.redirect("/"); // Redirect back to home
   } catch (err) {
     console.log(err);
     res.status(500).send("Error deleting item"); // Handle error
   }
 });
 
-
-app.listen(process.env.PORT || 3000, function (){
-    console.log("server is running on port 3000");
+app.listen(process.env.PORT || 3000, function () {
+  console.log("Server is running on port 3000");
 });
