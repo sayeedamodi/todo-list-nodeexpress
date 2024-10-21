@@ -1,4 +1,3 @@
-
 # To-Do List App 📝
 
 A simple To-Do List web application built using **Node.js**, **Express**, **EJS**, and **MongoDB** for persistent data storage.
